@@ -2,7 +2,7 @@
 
 This project discusses a number of variance reduction methods as a way to save the costs
  of replications needed to reduce error in simulations, as well as providing examples using the
- ARENAsimulation software. Common Random Numbers involve inducing a positive
+ ARENA simulation software. Common Random Numbers involve inducing a positive
  correlation between models. With Antithetic Variates, negative correlation is forced between
  pairs of runs. Control Variates are variables correlated with the response variable used to make a
  better estimate. Other methods including Importance Sampling, Conditioning, and Stratified
@@ -62,9 +62,9 @@ Simulation is often used for large-scale, time-consuming projects where reaching
  correctly synchronized. Another limitation is that while effective for sensitivity analysis, the use 
  of common random numbers is not as well-suited for the purposes of prediction (Kleijnen, Ridder & Rubinstein, 2013).
 
- If we are comparing two models and estimating *θ̂ * = X- Y :
+ If we are comparing two models and estimating *θ̂* = X- Y :
  
- Var(*θ̂ *) = Var(X) + Var(Y)- 2Cov(X, Y)
+ Var(*θ̂*) = Var(X) + Var(Y)- 2Cov(X, Y)
  
  When X and Y are different random numbers they are independent, and the covariance of
  X and Y is zero, so the total variance is based solely on the sum of Var(X) and Var(Y). By
@@ -117,9 +117,9 @@ Simulation is often used for large-scale, time-consuming projects where reaching
 
  Taking the average of two paired observations
  
- *θ̂ *= ( f (U₁) + f (U₂)) / 2
+ *θ̂*= ( f (U₁) + f (U₂)) / 2
  
- Var(*θ̂ *) = (Var(U₁) + Var(U₂) + 2Cov( f (U₁), f (U₂))) / 4
+ Var(*θ̂*) = (Var(U₁) + Var(U₂) + 2Cov( f (U₁), f (U₂))) / 4
  
  Since Var(U₁) and Var(U₂) are i.i.d.,
  
@@ -179,7 +179,7 @@ When estimating the mean of a variable, we can use another variable known to be
   For this example, output of the M/M/1 queue with independent runs used previously was
  analyzed in R. Once again, the expected wait time is the response, and expected service time is
  used as the CV, as they have a clear relation. From the output correlation coefficient was
-calculated as 0.6439. Beta was calculated to be-0.8227, and used to adjust the estimated wait
+calculated as 0.6439. Beta was calculated to be -0.8227, and used to adjust the estimated wait
  time. This adjustment results in a greatly reduced variance, as shown by the smaller half-width
  (Table 3).
 
