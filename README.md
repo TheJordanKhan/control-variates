@@ -123,7 +123,7 @@ Simulation is often used for large-scale, time-consuming projects where reaching
  
  Since Var(U₁) and Var(U₂) are i.i.d.,
  
- Var(*θ̂ *) = (Var(U₁) + Cov( f (U₁), f (U₂))) / 2
+ Var(*θ̂*) = (Var(U₁) + Cov( f (U₁), f (U₂))) / 2
  
  If Cov( f (U₁), f (U₂)) < 0, the variance is reduced, and so we can expect inducing a negative
  correlation will be effective.
