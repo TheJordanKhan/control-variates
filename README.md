@@ -1,1 +1,1 @@
-# control-variates
+# Control Variates
