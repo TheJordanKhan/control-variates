@@ -1,4 +1,4 @@
-# Control Variates
+# Variance Reduction Methods
 
 This project discusses a number of variance reduction methods as a way to save the costs
  of replications needed to reduce error in simulations, as well as providing examples using the
