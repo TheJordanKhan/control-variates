@@ -92,8 +92,8 @@ Simulation is often used for large-scale, time-consuming projects where reaching
  between the two models is reported in Table 1. The half-width for CRN is lower compared to the
  independent systems, indicating the confidence intervals are tighter and variance was reduced.
 
- **Table 1** <b>
-  *Two-Sample 95% Confidence Intervals for Expected Wait Time With and Without CRN* <b>
+ **Table 1**
+  *Two-Sample 95% Confidence Intervals for Expected Wait Time With and Without CRN*
   ||  | Average  | Half-Width |
   | --- | --- | --- |
   | Independent Systems | -0.1950 | 0.2431 | 
