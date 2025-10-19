@@ -62,8 +62,9 @@ Simulation is often used for large-scale, time-consuming projects where reaching
  correctly synchronized. Another limitation is that while effective for sensitivity analysis, the use 
  of common random numbers is not as well-suited for the purposes of prediction (Kleijnen, Ridder & Rubinstein, 2013).
 
- If we are comparing two models and estimating θ̂ = X- Y :
- Var(θ̂ ) = Var(X) + Var(Y)- 2Cov(X, Y)
+ If we are comparing two models and estimating *θ̂ * = X- Y :
+ 
+ Var(*θ̂ *) = Var(X) + Var(Y)- 2Cov(X, Y)
  
  When X and Y are different random numbers they are independent, and the covariance of
  X and Y is zero, so the total variance is based solely on the sum of Var(X) and Var(Y). By
@@ -114,13 +115,13 @@ Simulation is often used for large-scale, time-consuming projects where reaching
 
  Taking the average of two paired observations
  
- θ̂ = ( f (U₁) + f (U₂)) / 2
+ *θ̂ *= ( f (U₁) + f (U₂)) / 2
  
- Var(θ̂ ) = (Var(U₁) + Var(U₂) + 2Cov( f (U₁), f (U₂))) / 4
+ Var(*θ̂ *) = (Var(U₁) + Var(U₂) + 2Cov( f (U₁), f (U₂))) / 4
  
  Since Var(U₁) and Var(U₂) are i.i.d.,
  
- Var(θ̂ ) = (Var(U₁) + Cov( f (U₁), f (U₂))) / 2
+ Var(*θ̂ *) = (Var(U₁) + Cov( f (U₁), f (U₂))) / 2
  
  If Cov( f (U₁), f (U₂)) < 0, the variance is reduced, and so we can expect inducing a negative
  correlation will be effective.
@@ -141,3 +142,117 @@ Simulation is often used for large-scale, time-consuming projects where reaching
   | --- | --- | --- |
   | No Variation Reduction |  0.6625 | 0.2116 | 
   | Antithetic Variates | 0.7280 |  0.2055 |
+
+# Control Variates
+
+When estimating the mean of a variable, we can use another variable known to be
+ correlated with it to reduce the variance (Law, 2015). To be an effective method of variance
+ reduction, the CV should have both a high correlation with the output variable and have a low
+ variance itself, as well as having a known mean. It is possible to include many different control
+ variates for additional variance reduction. The number of good candidates for control variates
+ will depend on the nature of the simulation and the response. They may arise naturally from
+ existing conditions of the simulation or be an external variable that is induced.
+
+ The estimator adjusted with the control variate is
+ 
+ C=E[X] +β(Y-E[Y])
+ 
+ With the variance
+ 
+ Var(C) = Var(X) + β²Var(Y) + 2βCov(X,Y)
+ 
+ Beta is a constant that is chosen to produce the most variance reduction. To minimize the
+ variance beta is defined as
+ 
+ β =-Cov(X,Y) / Var(Y)
+ 
+ This is comparable to regression, wherein there is a coefficient adjusting the baseline intercept to
+ explain variation. Here, Var(C) is minimized with respect to Beta, as in regression the sum of
+ squared errors is minimized with respect to the coefficients in the model. For the CV to reduce
+ variance, β²Var(Y) + 2βCov(X,Y) < 0. Beta will have the opposite sign of the correlation, so
+ when the response and control are positively correlated, β < 0.
+
+  For this example, output of the M/M/1 queue with independent runs used previously was
+ analyzed in R. Once again, the expected wait time is the response, and expected service time is
+ used as the CV, as they have a clear relation. From the output correlation coefficient was
+calculated as 0.6439. Beta was calculated to be-0.8227, and used to adjust the estimated wait
+ time. This adjustment results in a greatly reduced variance, as shown by the smaller half-width
+ (Table 3).
+
+ **Table 2** <b>
+*One-Sample 95% Confidence Intervals for Expected Wait Time With and Without AV* <b>
+  ||  | Average  | Half-Width |
+  | --- | --- | --- |
+  | No Variance Reduction |  0.6625 | 0.2116 | 
+  | Control Variates | 0.6625 |  0.0013 |
+
+  # Other Variance Reduction Methods
+
+  This section will provide a brief overview of some additional variance reduction
+ methods, including Importance Sampling, Conditioning, and Stratified Sampling.
+ 
+ Importance Sampling is used for rare event probability estimation, when certain random
+ inputs have a greater impact on the estimate (Kleijnen, Ridder & Rubinstein, 2013). If it is
+ difficult to sample from the distribution p(x), the event can be sampled from another distribution
+ q(x) where it is more likely to occur. ∫ p(x) = ∫ Lq(x), where the likelihood function is L =
+ p(x)/q(x). The alternative distribution is the change of measure. Depending on the simulation
+ problem, there are different change of measure methods to be considered, such as Exponential,
+ Cross-Entropy, State-Dependent, and Markov Chains.
+ 
+ Conditioning works based on the Law of the Unconscious Statistician, where E[X] =
+ E[E[X|Y]], meaning E(X|Y) is unbiased for the parameter being estimated (Law, 2015).
+ Var(E(X|Y) = Var(Y)- E(Var(X|Y)), so observing the expectation of X given Y gives a smaller
+ variance than X. The estimator becomes the average of the conditional expectations (Kleijnen,
+ Ridder & Rubinstein, 2013). The use of this technique will be dependent on the probabilistic
+ structure of the model and the chosen variables.
+ 
+ Stratified Sampling, developed as a survey sampling method, involves dividing the
+ sample into a number of bins, taking equal samples from each (Keramat & Kielbasa, 1998).
+ Selecting proportional samples reduces the variance, with the number of bins chosen to minimize
+ the variance.
+
+# Conclusion
+
+  This project summarized an assortment of commonly used variance reduction methods to
+ provide a straightforward understanding using basic examples. It is clear these techniques can be
+ very beneficial, even though their effects may not be known beforehand. As seen in the
+ examples, the variance reduction might seem small in some cases, however at a large scale this
+ can save a lot of processing time, making it worthwhile to explore. For additional
+ experimentation, many of these methods may be compatible to be used in combination for a
+ potential greater effect of variance reduction. For example, the Schruben-Margolin strategy
+involves switching between common random numbers and antithetic variates for different blocks
+ in a simulation (Kleijnen, Ridder & Rubinstein, 2013).
+ 
+ While variance reduction methods often take relatively little cost and are an intuitive
+ inclusion to a simulation model, this is not always the case. It is important to consider how much
+ time will be saved by reducing the variance relative to the time required to implement the
+ methodology, as well as consider the appropriateness to the model and additional testing
+ required.
+ 
+ From working on this project, there is something to be said about the capabilities of
+ simulation languages for variance reduction. For Common Random Numbers and Antithetic
+ Variates, it is relatively straightforward to just use the Seeds module in ARENA, and CRN is
+ generally used by default in many simulation languages. In the case of Control Variates and other
+ variance reduction methods, it seems to either be not possible or not obvious how to apply them
+ using ARENA alone, and other software may be required to be used in conjunction. There are
+ some extensions for ARENA developed by Torres and Glynn (1995) supporting Control Variates
+ and Importance Sampling which may be outdated, however, I think it would be useful to have
+ more accessible, well documented tools available.
+
+ # References
+ 
+ Keramat, M., & Kielbasa, R. (1998). A study of stratified sampling in variance reduction
+ techniques for parametric yield estimation. IEEE Transactions on Circuits and Systems
+ II: Analog and Digital Signal Processing, 45(5).
+ https://doi.org/https://doi.org/10.1109/82.673639
+ 
+ Kleijnen, J.P.C., Ridder, A.A.N., Rubinstein, R.Y. (2013). Variance Reduction Techniques in
+ Monte Carlo Methods. In: Gass, S.I., Fu, M.C. (eds) Encyclopedia of Operations
+ Research and Management Science. Springer, Boston, MA.
+ https://doi.org/10.1007/978-1-4419-1153-7_638
+ 
+ Law, A. M. (2015). Simulation Modeling and Analysis (5th ed.). McGraw-Hill Education.
+ 
+ Torres, M. J., & Glynn, P. W. (1995). A set of extensions to the Siman/Arena Simulation
+ Environment. Winter Simulation Conference Proceedings, 1995.
+ https://doi.org/10.1109/wsc.1995.478736
