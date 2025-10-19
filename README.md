@@ -92,9 +92,10 @@ Simulation is often used for large-scale, time-consuming projects where reaching
  between the two models is reported in Table 1. The half-width for CRN is lower compared to the
  independent systems, indicating the confidence intervals are tighter and variance was reduced.
 
- **Table 1**
+ **Table 1** <b>
   *Two-Sample 95% Confidence Intervals for Expected Wait Time With and Without CRN*
-  ||  | Average  | Half-Width |
+  
+  |  | Average  | Half-Width |
   | --- | --- | --- |
   | Independent Systems | -0.1950 | 0.2431 | 
   | Common Random Numbers | 0.0540 | 0.1371 |
@@ -137,8 +138,9 @@ Simulation is often used for large-scale, time-consuming projects where reaching
  successfully reducing variance (Table 2).
 
 **Table 2** <b>
-*One-Sample 95% Confidence Intervals for Expected Wait Time With and Without AV* <b>
-  ||  | Average  | Half-Width |
+*One-Sample 95% Confidence Intervals for Expected Wait Time With and Without AV*
+
+  |  | Average  | Half-Width |
   | --- | --- | --- |
   | No Variation Reduction |  0.6625 | 0.2116 | 
   | Antithetic Variates | 0.7280 |  0.2055 |
@@ -179,9 +181,10 @@ calculated as 0.6439. Beta was calculated to be-0.8227, and used to adjust the e
  time. This adjustment results in a greatly reduced variance, as shown by the smaller half-width
  (Table 3).
 
- **Table 2** <b>
-*One-Sample 95% Confidence Intervals for Expected Wait Time With and Without AV* <b>
-  ||  | Average  | Half-Width |
+ **Table 3** <b>
+*One-Sample 95% Confidence Intervals for Expected Wait Time With and Without AV*
+
+  |    | Average  | Half-Width |
   | --- | --- | --- |
   | No Variance Reduction |  0.6625 | 0.2116 | 
   | Control Variates | 0.6625 |  0.0013 |
