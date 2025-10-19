@@ -188,7 +188,7 @@ calculated as 0.6439. Beta was calculated to be-0.8227, and used to adjust the e
 
   # Other Variance Reduction Methods
 
-  This section will provide a brief overview of some additional variance reduction
+  Here is a brief overview of some additional variance reduction
  methods, including Importance Sampling, Conditioning, and Stratified Sampling.
  
  Importance Sampling is used for rare event probability estimation, when certain random
