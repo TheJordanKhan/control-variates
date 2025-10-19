@@ -92,7 +92,8 @@ Simulation is often used for large-scale, time-consuming projects where reaching
  between the two models is reported in Table 1. The half-width for CRN is lower compared to the
  independent systems, indicating the confidence intervals are tighter and variance was reduced.
 
- **Table 1** <b>
+ **Table 1**
+ 
   *Two-Sample 95% Confidence Intervals for Expected Wait Time With and Without CRN*
   
   |  | Average  | Half-Width |
@@ -137,7 +138,8 @@ Simulation is often used for large-scale, time-consuming projects where reaching
  Compared to using independent runs, AV resulted in slightly tighter confidence intervals,
  successfully reducing variance (Table 2).
 
-**Table 2** <b>
+**Table 2**
+
 *One-Sample 95% Confidence Intervals for Expected Wait Time With and Without AV*
 
   |  | Average  | Half-Width |
@@ -181,7 +183,8 @@ calculated as 0.6439. Beta was calculated to be-0.8227, and used to adjust the e
  time. This adjustment results in a greatly reduced variance, as shown by the smaller half-width
  (Table 3).
 
- **Table 3** <b>
+ **Table 3**
+
 *One-Sample 95% Confidence Intervals for Expected Wait Time With and Without AV*
 
   |    | Average  | Half-Width |
